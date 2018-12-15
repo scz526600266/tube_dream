@@ -1,7 +1,8 @@
 from tkinter import *
-from os import listdir, popen, system, remove
+from subprocess import call, Popen, PIPE, STDOUT
+from os import listdir, popen, remove
 from shutil import move
-from subprocess import Popen, PIPE, STDOUT
+from getpass import getuser
 import youtube_dl
 import pygame
 
@@ -157,7 +158,7 @@ class TubeDream:
             fg=self.colors['grey'],
             bg=self.colors['black'],
             width=60,
-            text="testing"
+            text="Hello " + getuser()
         )
         # begin grid placement
         self.image.grid(
@@ -305,18 +306,19 @@ class TubeDream:
     def go(self):
         self.link = self.youtube_link.get("1.0", END).strip()
         self.f_name = self.file_name.get("1.0", END).strip()
+        self.file_type = self.get_chkbtn_status()
+        current_track = self.f_name + '.' + self.file_type
         if not self.link or not self.f_name:
             message = "Check your URL and ensure you entered a filename..."
             self.set_status_label(message)
         else:
-            self.file_type = self.get_chkbtn_status()
             if self.file_type is not None:
-                message = "Downloading %s as file type " % self.link
-                message += self.file_type
-                self.set_status_label(message)
                 self.download()
                 self.populate_explorer()
-                # highlight the song that was just downloaded
+
+                idx = sorted(listdir("downloads/")).index(current_track)
+                self.explorer.selection_clear(0, END)
+                self.explorer.selection_set(idx)
 
     def clear(self):
         self.file_name.delete("1.0", END)
@@ -328,7 +330,10 @@ class TubeDream:
     def delete(self):
         track = self.explorer.get(self.explorer.curselection())
         try:
-            remove("downloads/" + track)
+            path = "downloads/" + track
+            remove(path)
+            d_message = path + " DELETED"
+            self.set_status_label(d_message)
         except:
             message = "Unable to delete selected track"
             self.set_status_label(message)
@@ -341,21 +346,17 @@ class TubeDream:
                 psaux = line.split()
                 break
         try:
-            system('kill ' + psaux[1].strip())
+            call('kill ' + psaux[1].strip(), shell=True)
         except Exception as e:
             self.set_status_label(e)
 
     def play(self):
-        # ffplay downloads/br.mp3 -nodisp -autoexit
         self.playing = self.explorer.get(self.explorer.curselection())
         ffplay = [
             "ffplay", "downloads/" + self.playing,
             "-nodisp", "-autoexit"
         ]
         Popen(ffplay, stdout=PIPE, stderr=STDOUT)
-        #cmd = "ffplay downloads/" + self.playing
-        #cmd += " -nodisp -autoexit &"
-        #system(cmd)
 
     def set_status_label(self, incoming_message1):
         self.status_label.config(text=incoming_message1)
