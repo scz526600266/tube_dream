@@ -308,6 +308,8 @@ class TubeDream:
         self.f_name = self.file_name.get("1.0", END).strip()
         self.file_type = self.get_chkbtn_status()
         current_track = self.f_name + '.' + self.file_type
+        self.set_status_label('DOWNLOADING ' + current_track)
+        self.status_label.update_idletasks()
         if not self.link or not self.f_name:
             message = "Check your URL and ensure you entered a filename..."
             self.set_status_label(message)
