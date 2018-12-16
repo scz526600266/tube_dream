@@ -2,6 +2,7 @@ from tkinter import *
 from subprocess import call, Popen, PIPE, STDOUT
 from os import listdir, popen, remove
 from shutil import move
+from time import sleep
 from getpass import getuser
 import youtube_dl
 import pygame
@@ -252,9 +253,13 @@ class TubeDream:
         )
         self.populate_explorer()
 
-    def show_download_status(self):
-        # show some output of downloading.. maybe stdout?
-        pass
+    def finished(self, crnt_trk):
+        d = "FINISHED DOWNLOAD"
+        base = 0
+        for char in range(len(d) + 1):
+            self.set_status_label(d[base:char])
+            self.status_label.update_idletasks()
+            sleep(0.15)
 
     def download(self):
         try:
@@ -317,10 +322,10 @@ class TubeDream:
             if self.file_type is not None:
                 self.download()
                 self.populate_explorer()
-
                 idx = sorted(listdir("downloads/")).index(current_track)
                 self.explorer.selection_clear(0, END)
                 self.explorer.selection_set(idx)
+                self.finished(current_track)
 
     def clear(self):
         self.file_name.delete("1.0", END)
@@ -328,6 +333,7 @@ class TubeDream:
         self.check_wav.set(0)
         self.check_mp3.set(0)
         self.check_m4a.set(0)
+        self.set_status_label("Hello " + getuser())
 
     def delete(self):
         track = self.explorer.get(self.explorer.curselection())
@@ -342,18 +348,23 @@ class TubeDream:
         self.populate_explorer()
 
     def stop(self):
-        psaux = []
-        for line in popen("ps -aux | grep ffplay"):
-            if 'ffplay' in line:
-                psaux = line.split()
-                break
-        try:
-            call('kill ' + psaux[1].strip(), shell=True)
-        except Exception as e:
-            self.set_status_label(e)
+        if self.playing:
+            self.set_status_label('STOPPING ' + self.playing)
+            self.status_label.update_idletasks()
+            psaux = []
+            for line in popen("ps -aux | grep ffplay"):
+                if 'ffplay' in line:
+                    psaux = line.split()
+                    break
+            try:
+                call('kill ' + psaux[1].strip(), shell=True)
+            except Exception as e:
+                self.set_status_label(e)
 
     def play(self):
         self.playing = self.explorer.get(self.explorer.curselection())
+        self.set_status_label('PLAYING ' + self.playing)
+        self.status_label.update_idletasks()
         ffplay = [
             "ffplay", "downloads/" + self.playing,
             "-nodisp", "-autoexit"
