@@ -20,7 +20,7 @@ class TubeDream:
         self.master = master
         self.master.title("Tube Dream")
         self.master.configure(bg=self.colors['black'])
-        self.master.geometry("850x950")
+        self.master.geometry("850x700")
         self.check_wav = IntVar()
         self.check_mp3 = IntVar()
         self.check_m4a = IntVar()
@@ -123,7 +123,7 @@ class TubeDream:
             fg=self.colors['blue'],
             bg=self.colors['grey'],
             width=100,
-            height=25,
+            height=15,
             highlightcolor=self.colors['green']
         )
         self.delete_button = Button(
