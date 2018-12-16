@@ -5,7 +5,6 @@ from shutil import move
 from time import sleep
 from getpass import getuser
 import youtube_dl
-import pygame
 
 
 class TubeDream:
