@@ -20,7 +20,7 @@ class TubeDream:
         self.master = master
         self.master.title("Tube Dream")
         self.master.configure(bg=self.colors['black'])
-        self.master.geometry("850x700")
+        self.master.geometry("850x640")
         self.check_wav = IntVar()
         self.check_mp3 = IntVar()
         self.check_m4a = IntVar()
@@ -191,29 +191,29 @@ class TubeDream:
             row=3,
             sticky=W,
             padx=100,
-            pady=30
+            pady=5
         )
         self.mp3.grid(
             row=3,
-            pady=30
+            pady=5
         )
         self.m4a.grid(
             row=3,
             sticky=E,
             padx=100,
-            pady=30
+            pady=5
         )
         self.go_button.grid(
             row=5,
             sticky=W,
             padx=20,
-            pady=20
+            pady=10
         )
         self.clear_button.grid(
             row=5,
             sticky=E,
             padx=20,
-            pady=20
+            pady=10
         )
         self.explorer_label1.grid(
             row=6,
@@ -258,7 +258,7 @@ class TubeDream:
         for char in range(len(d) + 1):
             self.set_status_label(d[base:char])
             self.status_label.update_idletasks()
-            sleep(0.15)
+            sleep(0.1)
 
     def download(self):
         try:
