@@ -4,6 +4,7 @@ from os import listdir, popen, remove
 from shutil import move
 from time import sleep
 from getpass import getuser
+from threading import Thread
 import youtube_dl
 
 
@@ -252,13 +253,12 @@ class TubeDream:
         )
         self.populate_explorer()
 
-    def finished(self, crnt_trk):
+    def finished(self):
         d = "FINISHED DOWNLOAD"
-        base = 0
-        for char in range(len(d) + 1):
-            self.set_status_label(d[base:char])
+        for letter in enumerate(d):
+            self.set_status_label(d[0:letter[0] + 1])
             self.status_label.update_idletasks()
-            sleep(0.1)
+            sleep(.1)
 
     def download(self):
         try:
@@ -311,20 +311,20 @@ class TubeDream:
         self.link = self.youtube_link.get("1.0", END).strip()
         self.f_name = self.file_name.get("1.0", END).strip()
         self.file_type = self.get_chkbtn_status()
-        current_track = self.f_name + '.' + self.file_type
-        self.set_status_label('DOWNLOADING ' + current_track)
-        self.status_label.update_idletasks()
         if not self.link or not self.f_name:
             message = "Check your URL and ensure you entered a filename..."
             self.set_status_label(message)
         else:
             if self.file_type is not None:
+                current_track = self.f_name + '.' + self.file_type
+                self.set_status_label('DOWNLOADING ' + current_track)
+                self.status_label.update_idletasks()
                 self.download()
                 self.populate_explorer()
                 idx = sorted(listdir("downloads/")).index(current_track)
                 self.explorer.selection_clear(0, END)
                 self.explorer.selection_set(idx)
-                self.finished(current_track)
+                self.finished()
 
     def clear(self):
         self.file_name.delete("1.0", END)
@@ -335,14 +335,14 @@ class TubeDream:
         self.set_status_label("Hello " + getuser())
 
     def delete(self):
-        track = self.explorer.get(self.explorer.curselection())
         try:
+            track = self.explorer.get(self.explorer.curselection())
             path = "downloads/" + track
             remove(path)
             d_message = path + " DELETED"
             self.set_status_label(d_message)
         except:
-            message = "Unable to delete selected track"
+            message = "Please select a track to delete"
             self.set_status_label(message)
         self.populate_explorer()
 
