@@ -17,10 +17,8 @@ Linux OS, Python3, and following packages:
 <code>apt-get install youtube-dl</code>
 <br>
 <code>apt-get install ffmpeg</code>
-<br>
-boto3 is required if using the S3 feature:
-<br>
-pip3 install boto3
+<br><br>
+If you plan on using the S3 feature install boto3: <code>pip3 install boto3</code>
 <br><br>
 Also if using the S3 feature, please ensure your
 Amazon keys are set as one of the following:
