@@ -4,8 +4,7 @@ from os import listdir, popen, remove
 from shutil import move
 from time import sleep
 from getpass import getuser
-from threading import Thread
-import youtube_dl
+
 
 
 class TubeDream:
@@ -261,22 +260,19 @@ class TubeDream:
             sleep(.1)
 
     def download(self):
+        track = self.f_name + '.' + self.file_type
+        cmd_list = [
+            "youtube-dl", self.link, "-f",
+            "bestaudio", "--extract-audio",
+            "-o", track, "--audio-quality",
+            "0", "--audio-format", self.file_type
+        ]
+        cmd = ' '.join(cmd_list)
+        for std_out in popen(cmd):
+            self.set_status_label(std_out)
+            self.status_label.update_idletasks()
         try:
-            ydl_opts = {
-                'format': 'bestaudio/best',
-                'outtmpl': self.f_name + '.' + self.file_type,
-                'postprocessors': [
-                    {
-                        'key': 'FFmpegExtractAudio',
-                        'preferredcodec': self.file_type,
-                        'preferredquality': '192'
-                    }
-                ]
-            }
-            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                ydl.download([self.link])
             move(self.f_name + '.' + self.file_type, "downloads/")
-            self.set_status_label("FINISHED")
         except:
             self.set_status_label("ERROR DOWNLOADING")
 
@@ -361,14 +357,17 @@ class TubeDream:
                 self.set_status_label(e)
 
     def play(self):
-        self.playing = self.explorer.get(self.explorer.curselection())
-        self.set_status_label('PLAYING ' + self.playing)
-        self.status_label.update_idletasks()
-        ffplay = [
-            "ffplay", "downloads/" + self.playing,
-            "-nodisp", "-autoexit"
-        ]
-        Popen(ffplay, stdout=PIPE, stderr=STDOUT)
+        try:
+            self.playing = self.explorer.get(self.explorer.curselection())
+            self.set_status_label('PLAYING ' + self.playing)
+            self.status_label.update_idletasks()
+            ffplay = [
+                "ffplay", "downloads/" + self.playing,
+                "-nodisp", "-autoexit"
+            ]
+            Popen(ffplay, stdout=PIPE, stderr=STDOUT)
+        except:
+            self.set_status_label("Please select a track to play")
 
     def set_status_label(self, incoming_message1):
         self.status_label.config(text=incoming_message1)
