@@ -335,7 +335,7 @@ class TubeDream:
             track = self.explorer.get(self.explorer.curselection())
             path = "downloads/" + track
             remove(path)
-            d_message = path + " DELETED"
+            d_message = track + " DELETED"
             self.set_status_label(d_message)
         except:
             message = "Please select a track to delete"
