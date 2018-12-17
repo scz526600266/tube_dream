@@ -21,7 +21,7 @@ Linux OS, Python3, and following packages:
 If you plan on using the S3 feature install boto3: <code>pip3 install boto3</code>
 <br><br>
 Also if using the S3 feature, please ensure your
-Amazon keys are set as one of the following:
+Amazon keys are set as <b>one</b> of the following:
 <br>
 <ol>
   <li>
