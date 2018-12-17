@@ -11,11 +11,11 @@ System Requirements:
 <br>
 Linux OS, Python3, and following packages:
 <br>
-apt-get install python3-tk
+<code>apt-get install python3-tk</code>
 <br>
-apt-get install youtube-dl
+<code>apt-get install youtube-dl</code>
 <br>
-apt-get install ffmpeg
+<code>apt-get install ffmpeg</code>
 <br>
 
 <hr>
