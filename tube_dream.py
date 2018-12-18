@@ -7,7 +7,6 @@ from time import sleep
 from getpass import getuser
 
 
-
 class TubeDream:
     def __init__(self, master):
         self.colors = {
