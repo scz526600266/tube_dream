@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 from tkinter import *
 from subprocess import call, Popen, PIPE, STDOUT
 from os import listdir, popen, remove
