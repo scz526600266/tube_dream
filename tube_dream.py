@@ -68,43 +68,43 @@ class TubeDream:
             fg=self.colors['red'],
             bg=self.colors['black'],
             text='.wav',
+            highlightbackground=self.colors['black'],
             variable=self.check_wav
         )
-        self.wav.config(highlightbackground=self.colors['black'])
         self.mp3 = Checkbutton(
             master,
             fg=self.colors['red'],
             bg=self.colors['black'],
             text='.mp3',
+            highlightbackground=self.colors['black'],
             variable=self.check_mp3
         )
-        self.mp3.config(highlightbackground=self.colors['black'])
         self.m4a = Checkbutton(
             master,
             fg=self.colors['red'],
             bg=self.colors['black'],
             text='.m4a',
+            highlightbackground=self.colors['black'],
             variable=self.check_m4a
         )
-        self.m4a.config(highlightbackground=self.colors['black'])
         self.go_button = Button(
             master,
             fg=self.colors['grey'],
             bg=self.colors['green'],
             text="GO!",
             width=48,
+            highlightbackground=self.colors['black'],
             command=self.go
         )
-        self.go_button.config(highlightbackground=self.colors['black'])
         self.clear_button = Button(
             master,
             fg=self.colors['grey'],
             bg=self.colors['green'],
             text="CLEAR",
             width=48,
+            highlightbackground=self.colors['black'],
             command=self.clear
         )
-        self.clear_button.config(highlightbackground=self.colors['black'])
         self.explorer_label1 = Label(
             master,
             fg=self.colors['grey'],
@@ -133,27 +133,27 @@ class TubeDream:
             bg=self.colors['red'],
             text="DELETE",
             width=31,
+            highlightbackground=self.colors['black'],
             command=self.delete
         )
-        self.delete_button.config(highlightbackground=self.colors['black'])
         self.stop_button = Button(
             master,
             fg=self.colors['grey'],
             bg=self.colors['green'],
             text="STOP",
             width=31,
+            highlightbackground=self.colors['black'],
             command=self.stop
         )
-        self.stop_button.config(highlightbackground=self.colors['black'])
         self.play_button = Button(
             master,
             fg=self.colors['grey'],
             bg=self.colors['green'],
             text="PLAY",
             width=31,
+            highlightbackground=self.colors['black'],
             command=self.play
         )
-        self.play_button.config(highlightbackground=self.colors['black'])
         self.status_label = Label(
             master,
             fg=self.colors['grey'],
