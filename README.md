@@ -11,7 +11,7 @@ The app is able to download the following audio formats:
 <br>
 .wav, .mp3, .m4a
 <br><br>
-<ol>
+<ul>
   <li>
     System Requirements: Linux OS, Python3, and following packages:
   </li>
@@ -22,7 +22,7 @@ The app is able to download the following audio formats:
       <li><code>apt-get install ffmpeg</code></li>
     </ul>
   </li>
-</ol>
+</ul>
 <br
 This was developed on Ubuntu 16.04.4 LTS.
 <hr>
