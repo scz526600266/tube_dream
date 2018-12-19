@@ -1,4 +1,4 @@
-## Python Tkinter GUI Tube Downloader
+## Python Tkinter GUI Tube Downloader for Linux
 ## Download Audio From Your Favorite Youtube Videos
 
 
