@@ -2,42 +2,34 @@
 ## Download Audio From Your Favorite Youtube Videos
 
 
-GUI designed with Tkinter
+<b>GUI designed with Tkinter</b>
 <br><br>
-File formats available:
+The included downloads/ directory is used to store your
+files and it's contents will be available in the GUI
+<br><br>
+The app is able to download the following audio formats:
 <br>
 .wav, .mp3, .m4a
 <br><br>
-System Requirements:
-<br>
-Linux OS, Python3, and following packages:
-<br>
-<code>apt-get install python3-tk</code>
-<br>
-<code>apt-get install youtube-dl</code>
-<br>
-<code>apt-get install ffmpeg</code>
-<br><br>
-If you plan on using the S3 feature install boto3: <code>pip3 install boto3</code>
-<br><br>
-Also if using the S3 feature, please ensure your
-Amazon keys are set as <b>one</b> of the following:
-<br>
 <ol>
   <li>
-    Environment variables - .bashrc or .bash_profile
-    <ul>
-      <li><code>export AWS_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXXXXXXXXXXXX</code></li>
-      <li><code>export AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXXXXXXXXXXX</code></li>
-    </ul>
+    System Requirements: Linux OS, Python3, and following packages:
   </li>
   <li>
-    Shared credential file (~/.aws/credentials)
+    <ul>
+      <li><code>apt-get install python3-tk</code></li>
+      <li><code>apt-get install youtube-dl</code></li>
+      <li><code>apt-get install ffmpeg</code></li>
+    </ul>
   </li>
   <li>
     AWS config file (~/.aws/config)
   </li>
 </ol>
 <br
+This was developed on Ubuntu 16.04.4 LTS.
 <hr>
 <b>Author: James Loye Colley  17DEC2018</b>
+<br>
+<img src="https://github.com/rootVIII/tube_dream/blob/master/screenshot.png" alt="example1" height="675" width="950"><hr>
+
