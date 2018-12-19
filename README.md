@@ -28,5 +28,5 @@ This was developed on Ubuntu 16.04.4 LTS.
 <hr>
 <b>Author: James Loye Colley  17DEC2018</b>
 <br>
-<img src="https://github.com/rootVIII/tube_dream/tree/master/img/screenshot.png" alt="example1" height="675" width="950"><hr>
+<img src="https://github.com/rootVIII/tube_dream/blob/master/screenshot.png" alt="example1" height="675" width="950"><hr>
 
