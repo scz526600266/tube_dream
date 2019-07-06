@@ -20,236 +20,94 @@ class TubeDream:
         self.master = master
         self.master.title("Tube Dream")
         self.master.configure(bg=self.colors['black'])
-        self.master.geometry("850x640")
+        self.master.geometry("850x700")
         self.check_wav = IntVar()
         self.check_mp3 = IntVar()
         self.check_m4a = IntVar()
         self.base_url, self.link, self.playing = '', '', ''
         self.file_type, self.f_name = '', ''
         self.imagePath = PhotoImage(file="img/froggy.png")
-        self.image = Label(
-            master,
-            image=self.imagePath,
-            borderwidth=0
-        )
+        self.image = Label(master, image=self.imagePath, borderwidth=0)
+
+        # widgets/UI elements
         self.link_label = Label(
-            master,
-            fg=self.colors['grey'],
-            bg=self.colors['blue'],
-            text="Enter your YouTube link: ",
-            width=57,
-            font="Helvetica 10 bold"
-        )
+            master, fg=self.colors['grey'], bg=self.colors['blue'],
+            text="Enter your YouTube link: ", width=57,
+            font="Helvetica 10 bold")
         self.youtube_link = Text(
-            master,
-            fg=self.colors['blue'],
-            bg=self.colors['grey'],
-            width=57,
-            height=1
-        )
+            master, fg=self.colors['blue'],
+            bg=self.colors['grey'], width=57, height=1)
         self.file_name_label = Label(
-            master,
-            fg=self.colors['grey'],
-            bg=self.colors['blue'],
+            master, fg=self.colors['grey'], bg=self.colors['blue'],
             text="Enter a name for your file: ",
-            width=57,
-            font="Helvetica 10 bold"
-        )
+            width=57, font="Helvetica 10 bold")
         self.file_name = Text(
-            master,
-            fg=self.colors['blue'],
-            bg=self.colors['grey'],
-            width=57,
-            height=1
-        )
+            master, fg=self.colors['blue'],
+            bg=self.colors['grey'], width=57, height=1)
         self.wav = Checkbutton(
-            master,
-            fg=self.colors['red'],
-            bg=self.colors['black'],
-            text='.wav',
-            highlightbackground=self.colors['black'],
-            variable=self.check_wav
-        )
+            master, fg=self.colors['red'], bg=self.colors['black'],
+            text='.wav', highlightbackground=self.colors['black'],
+            variable=self.check_wav)
         self.mp3 = Checkbutton(
-            master,
-            fg=self.colors['red'],
-            bg=self.colors['black'],
-            text='.mp3',
-            highlightbackground=self.colors['black'],
-            variable=self.check_mp3
-        )
+            master, fg=self.colors['red'], bg=self.colors['black'],
+            text='.mp3', highlightbackground=self.colors['black'],
+            variable=self.check_mp3)
         self.m4a = Checkbutton(
-            master,
-            fg=self.colors['red'],
-            bg=self.colors['black'],
-            text='.m4a',
-            highlightbackground=self.colors['black'],
-            variable=self.check_m4a
-        )
+            master, fg=self.colors['red'], bg=self.colors['black'],
+            text='.m4a', highlightbackground=self.colors['black'],
+            variable=self.check_m4a)
         self.go_button = Button(
-            master,
-            fg=self.colors['grey'],
-            bg=self.colors['green'],
-            text="GO!",
-            width=48,
-            highlightbackground=self.colors['black'],
-            command=self.go
-        )
+            master, fg=self.colors['grey'],
+            bg=self.colors['green'], text="GO!", width=48,
+            highlightbackground=self.colors['black'], command=self.go)
         self.clear_button = Button(
-            master,
-            fg=self.colors['grey'],
-            bg=self.colors['green'],
-            text="CLEAR",
-            width=48,
-            highlightbackground=self.colors['black'],
-            command=self.clear
-        )
+            master, fg=self.colors['grey'],
+            bg=self.colors['green'], text="CLEAR",
+            width=48, highlightbackground=self.colors['black'],
+            command=self.clear)
         self.explorer_label1 = Label(
-            master,
-            fg=self.colors['grey'],
-            bg=self.colors['blue'],
-            width=50,
-            text="Downloaded Tracks:  "
-        )
+            master, fg=self.colors['grey'], bg=self.colors['blue'],
+            width=50, text="Downloaded Tracks:")
         self.explorer_label2 = Label(
-            master,
-            fg=self.colors['grey'],
-            bg=self.colors['black'],
-            width=50,
-            text=""
-        )
+            master, fg=self.colors['grey'], bg=self.colors['black'],
+            width=50, text='')
         self.explorer = Listbox(
-            master,
-            fg=self.colors['blue'],
-            bg=self.colors['grey'],
-            width=100,
-            height=15,
-            highlightcolor=self.colors['green']
-        )
+            master, fg=self.colors['blue'], bg=self.colors['grey'],
+            width=100, height=15, highlightcolor=self.colors['green'])
         self.delete_button = Button(
-            master,
-            fg=self.colors['white'],
-            bg=self.colors['red'],
-            text="DELETE",
-            width=31,
-            highlightbackground=self.colors['black'],
-            command=self.delete
-        )
+            master, fg=self.colors['white'],
+            bg=self.colors['red'], text="DELETE", width=31,
+            highlightbackground=self.colors['black'], command=self.delete)
         self.stop_button = Button(
-            master,
-            fg=self.colors['grey'],
-            bg=self.colors['green'],
-            text="STOP",
-            width=31,
-            highlightbackground=self.colors['black'],
-            command=self.stop
-        )
+            master, fg=self.colors['grey'],
+            bg=self.colors['green'], text="STOP", width=31,
+            highlightbackground=self.colors['black'], command=self.stop)
         self.play_button = Button(
-            master,
-            fg=self.colors['grey'],
-            bg=self.colors['green'],
-            text="PLAY",
-            width=31,
-            highlightbackground=self.colors['black'],
-            command=self.play
-        )
+            master, fg=self.colors['grey'],
+            bg=self.colors['green'], text="PLAY", width=31,
+            highlightbackground=self.colors['black'], command=self.play)
         self.status_label = Label(
-            master,
-            fg=self.colors['grey'],
-            bg=self.colors['black'],
-            width=60,
-            text="Hello " + getuser()
-        )
+            master, fg=self.colors['grey'], bg=self.colors['black'],
+            width=60, text="Hello " + getuser())
+
         # begin grid placement
-        self.image.grid(
-            row=0,
-            sticky=W+E
-        )
-        self.link_label.grid(
-            row=1,
-            sticky=W,
-            padx=20,
-            pady=5
-        )
-        self.youtube_link.grid(
-            row=1,
-            sticky=E,
-            padx=20,
-            pady=5
-        )
-        self.file_name_label.grid(
-            row=2,
-            sticky=W,
-            padx=20
-        )
-        self.file_name.grid(
-            row=2,
-            sticky=E,
-            padx=20
-        )
-        self.wav.grid(
-            row=3,
-            sticky=W,
-            padx=100,
-            pady=5
-        )
-        self.mp3.grid(
-            row=3,
-            pady=5
-        )
-        self.m4a.grid(
-            row=3,
-            sticky=E,
-            padx=100,
-            pady=5
-        )
-        self.go_button.grid(
-            row=5,
-            sticky=W,
-            padx=20,
-            pady=10
-        )
-        self.clear_button.grid(
-            row=5,
-            sticky=E,
-            padx=20,
-            pady=10
-        )
-        self.explorer_label1.grid(
-            row=6,
-            sticky=W,
-            padx=20
-        )
-        self.explorer_label2.grid(
-            row=6,
-            sticky=E,
-            padx=20
-        )
-        self.explorer.grid(
-            row=7,
-            sticky=E+W,
-            padx=20
-        )
-        self.play_button.grid(
-            row=8,
-            sticky=W,
-            padx=20,
-            pady=20
-        )
-        self.stop_button.grid(
-            row=8,
-            pady=20
-        )
-        self.delete_button.grid(
-            row=8,
-            sticky=E,
-            padx=20,
-            pady=20
-        )
-        self.status_label.grid(
-            row=13,
-            sticky=E+W
-        )
+        self.image.grid(row=0, sticky=W+E)
+        self.link_label.grid(row=1, sticky=W, padx=20, pady=5)
+        self.youtube_link.grid(row=1, sticky=E, padx=20, pady=5)
+        self.file_name_label.grid(row=2, sticky=W, padx=20)
+        self.file_name.grid(row=2, sticky=E, padx=20)
+        self.wav.grid(row=3, sticky=W, padx=100, pady=5)
+        self.mp3.grid(row=3, pady=5)
+        self.m4a.grid(row=3, sticky=E, padx=100, pady=5)
+        self.go_button.grid(row=5, sticky=W, padx=20, pady=10)
+        self.clear_button.grid(row=5, sticky=E, padx=20, pady=10)
+        self.explorer_label1.grid(row=6, sticky=W, padx=20)
+        self.explorer_label2.grid(row=6, sticky=E, padx=20)
+        self.explorer.grid(row=7, sticky=E+W, padx=20)
+        self.play_button.grid(row=8, sticky=W, padx=20, pady=20)
+        self.stop_button.grid(row=8, pady=20)
+        self.delete_button.grid(row=8, sticky=E, padx=20, pady=20)
+        self.status_label.grid(row=13, sticky=E+W)
         self.populate_explorer()
 
     def finished(self):
@@ -260,20 +118,27 @@ class TubeDream:
             sleep(.1)
 
     def download(self):
+        aac = self.f_name + '.' + 'aac'
         track = self.f_name + '.' + self.file_type
-        cmd_list = [
+        youtube_cmd = [
             "youtube-dl", self.link, "-f",
             "bestaudio", "--extract-audio",
             "-o", track, "--audio-quality",
-            "0", "--audio-format", self.file_type
+            "0", "--audio-format", "aac"
         ]
-        cmd = ' '.join(cmd_list)
+        cmd = ' '.join(youtube_cmd)
         for std_out in popen(cmd):
             self.set_status_label(std_out)
             self.status_label.update_idletasks()
+        ffmpeg_cmd = ["ffmpeg", "-v", "quiet", "-i", aac, track]
+        cmd = ' '.join(ffmpeg_cmd)
+        for stdout in popen(cmd):
+            self.set_status_label(stdout)
+            self.status_label.update_idletasks()
         try:
-            move(self.f_name + '.' + self.file_type, "downloads/")
-        except:
+            remove(aac)
+            move(track, "downloads/")
+        except Exception:
             self.set_status_label("ERROR DOWNLOADING")
 
     def get_chkbtn_status(self):
@@ -337,7 +202,7 @@ class TubeDream:
             remove(path)
             d_message = track + " DELETED"
             self.set_status_label(d_message)
-        except:
+        except Exception:
             message = "Please select a track to delete"
             self.set_status_label(message)
         self.populate_explorer()
@@ -366,7 +231,7 @@ class TubeDream:
                 "-nodisp", "-autoexit"
             ]
             Popen(ffplay, stdout=PIPE, stderr=STDOUT)
-        except:
+        except Exception:
             self.set_status_label("Please select a track to play")
 
     def set_status_label(self, incoming_message1):
