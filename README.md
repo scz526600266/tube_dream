@@ -32,10 +32,6 @@ Download, navigate to project root, and run the following command
 
 pip install -e .
 
-Or install into pip via Git:
-
-pip install git+https://github.com/rootVIII/tube_dream
-
 Then run the command from any location in your shell: tube_dream
 
   </code>
