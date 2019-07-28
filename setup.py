@@ -6,7 +6,7 @@ setup(
     version="1.0.4",
     packages=["tube_dream"],
     package_data={
-        'tube_dream': [
+        '': [
             'downloads/*.txt',
             'img/*.png'
         ]
@@ -23,9 +23,7 @@ setup(
     },
     data_files=[
         (
-            'tube_dream', [
-                'img/froggy.png'
-            ]
+            '', ['img/froggy.png']
         )
     ]
 )
