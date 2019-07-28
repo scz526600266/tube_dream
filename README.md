@@ -40,6 +40,9 @@ Then run the command from any location in your shell: tube_dream
 
   </code>
 </pre>
+<br>
+  Tested on Ubuntu 18.04/Kali Rolling 2019.2
+<br>
 This was developed on Ubuntu 16.04.4 LTS.
 <hr>
 <b>Author: James Loye Colley  17DEC2018</b>
