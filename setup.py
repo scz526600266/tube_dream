@@ -3,13 +3,11 @@ from setuptools import setup
 
 setup(
     name="tube_dream",
-    version="1.0.2",
+    version="1.0.3",
     packages=["tube_dream"],
     package_data={
         'tube_dream': [
-            'downloads/*.m4a',
-            'downloads/*.mp3',
-            'downloads/*.wav',
+            'downloads/*.txt',
             'img/*.png'
         ]
     },
@@ -26,9 +24,6 @@ setup(
     data_files=[
         (
             'tube_dream', [
-                'downloads/*.m4a',
-                'downloads/*.mp3',
-                'downloads/*.wav',
                 'img/froggy.png'
             ]
         )
