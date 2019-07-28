@@ -27,14 +27,16 @@ The app is able to download the following audio formats:
 <pre>
   <code>
 
-  Download, navigate to project root, and run the following command
-  (ensure pip points to Python3 or use pip3):
+Download, navigate to project root, and run the following command
+(ensure pip points to Python3 or use pip3):
 
-   pip install -e .
+pip install -e .
 
-   Or install into pip via Git:
+Or install into pip via Git:
 
-   pip install git+https://github.com/rootVIII/tube_dream
+pip install git+https://github.com/rootVIII/tube_dream
+
+Then run the command from any location in your shell: tube_dream
 
   </code>
 </pre>
