@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="tube_dream",
-    version="1.0.5",
+    version="1.0.6",
     packages=["tube_dream"],
     package_data={
         'tube_dream': [
