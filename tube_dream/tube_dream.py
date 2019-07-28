@@ -27,8 +27,8 @@ class TubeDream:
         self.check_m4a = IntVar()
         self.base_url, self.link, self.playing = '', '', ''
         self.file_type, self.f_name = '', ''
-        self.downloads = realpath(__file__)[:-24] + 'downloads/'
-        img = realpath(__file__)[:-24] + 'img/froggy.png'
+        self.downloads = realpath(__file__)[:-13] + '/downloads/'
+        img = realpath(__file__)[:-13] + '/img/froggy.png'
         self.imagePath = PhotoImage(file=img)
         self.image = Label(master, image=self.imagePath, borderwidth=0)
 
