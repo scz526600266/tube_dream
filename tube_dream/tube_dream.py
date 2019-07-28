@@ -1,8 +1,8 @@
 #! /usr/bin/env
 from tkinter import *
 from subprocess import call, Popen, PIPE, STDOUT
-from os import listdir, popen, remove
-from os.path import realpath
+from os import listdir, popen, remove, mkdir
+from os.path import realpath, isdir
 from getpass import getuser
 from shutil import move
 from time import sleep
@@ -28,7 +28,9 @@ class TubeDream:
         self.base_url, self.link, self.playing = '', '', ''
         self.file_type, self.f_name = '', ''
         self.downloads = realpath(__file__)[:-13] + 'downloads/'
-        img = realpath(__file__)[:-13] + 'img/froggy.png'
+        if not isdir(self.downloads):
+            mkdir(self.downloads)
+        img = realpath(__file__)[:-13] + 'froggy.png'
         self.imagePath = PhotoImage(file=img)
         self.image = Label(master, image=self.imagePath, borderwidth=0)
 

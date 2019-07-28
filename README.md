@@ -1,7 +1,7 @@
 ## Python Tkinter GUI Tube Downloader for Linux Debian Distros
 #### Download Audio From Your Favorite Youtube Videos
 
-<img src="https://github.com/rootVIII/tube_dream/blob/master/tube_dream/img/screenshot.png" alt="example1" height="675" width="950"><hr>
+<img src="https://github.com/rootVIII/tube_dream/blob/master/tube_dream/screenshot.png" alt="example1" height="675" width="950"><hr>
 <b>GUI designed with Tkinter</b>
 <br><br>
 The included downloads/ directory is used to store your

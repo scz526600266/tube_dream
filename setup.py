@@ -6,10 +6,7 @@ setup(
     version="1.0.6",
     packages=["tube_dream"],
     package_data={
-        'tube_dream': [
-            'tube_dream/downloads/*.txt',
-            'tube_dream/img/*.png'
-        ]
+        'tube_dream': ['tube_dream/*.png']
     },
     include_package_data=True,
     url="https://github.com/rootVIII/tube_dream",
@@ -23,7 +20,7 @@ setup(
     },
     data_files=[
         (
-            'tube_dream', ['tube_dream/img/froggy.png']
+            'tube_dream', ['tube_dream/froggy.png']
         )
     ]
 )
