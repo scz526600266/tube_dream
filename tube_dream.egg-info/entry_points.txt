@@ -1,3 +1,0 @@
-[console_scripts]
-tube_dream = tube_dream.tube_dream:main
-

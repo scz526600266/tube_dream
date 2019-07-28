@@ -1,0 +1,6 @@
+/downloads/*.m4a
+/downloads/*.mp3
+/downloads/*.wav
+/tube_dream/*.pyc
+/tube_dream/__pycache__
+/tube_dream.egg-info
