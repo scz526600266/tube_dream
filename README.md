@@ -13,7 +13,10 @@ The app is able to download the following audio formats:
 <br><br>
 <ul>
   <li>
-    System Requirements: Linux OS, Python3, and following packages:
+    System Requirements: Debian-Flavored Linux OS
+  </li>
+  <li>
+    Python3
   </li>
   <li>
     <ul>
@@ -23,7 +26,6 @@ The app is able to download the following audio formats:
     </ul>
   </li>
 </ul>
-<br>
 <pre>
   <code>
 
