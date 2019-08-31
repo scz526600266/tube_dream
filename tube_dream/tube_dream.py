@@ -1,8 +1,10 @@
 #! /usr/bin/env
-from tkinter import *
+from tkinter import IntVar, PhotoImage, Label, Text, END, Tk
+from tkinter import Button, Checkbutton, Listbox, W, E
 from subprocess import call, Popen, PIPE, STDOUT
 from os import listdir, popen, remove, mkdir
 from os.path import realpath, isdir
+from threading import Thread
 from getpass import getuser
 from shutil import move
 from time import sleep
@@ -19,9 +21,9 @@ class TubeDream:
             'grey': '#E5E4E2',
         }
         self.master = master
-        self.master.title("Tube Dream")
+        self.master.title('Tube Dream')
         self.master.configure(bg=self.colors['black'])
-        self.master.geometry("850x700")
+        self.master.geometry('850x700')
         self.check_wav = IntVar()
         self.check_mp3 = IntVar()
         self.check_m4a = IntVar()
@@ -37,15 +39,15 @@ class TubeDream:
         # widgets/UI elements
         self.link_label = Label(
             master, fg=self.colors['grey'], bg=self.colors['blue'],
-            text="Enter your YouTube link: ", width=57,
-            font="Helvetica 10 bold")
+            text='Enter your YouTube link: ', width=57,
+            font='Helvetica 10 bold')
         self.youtube_link = Text(
             master, fg=self.colors['blue'],
             bg=self.colors['grey'], width=57, height=1)
         self.file_name_label = Label(
             master, fg=self.colors['grey'], bg=self.colors['blue'],
-            text="Enter a name for your file: ",
-            width=57, font="Helvetica 10 bold")
+            text='Enter a name for your file: ',
+            width=57, font='Helvetica 10 bold')
         self.file_name = Text(
             master, fg=self.colors['blue'],
             bg=self.colors['grey'], width=57, height=1)
@@ -63,16 +65,16 @@ class TubeDream:
             variable=self.check_m4a)
         self.go_button = Button(
             master, fg=self.colors['grey'],
-            bg=self.colors['green'], text="GO!", width=48,
+            bg=self.colors['green'], text='GO!', width=48,
             highlightbackground=self.colors['black'], command=self.go)
         self.clear_button = Button(
             master, fg=self.colors['grey'],
-            bg=self.colors['green'], text="CLEAR",
+            bg=self.colors['green'], text='CLEAR',
             width=48, highlightbackground=self.colors['black'],
             command=self.clear)
         self.explorer_label1 = Label(
             master, fg=self.colors['grey'], bg=self.colors['blue'],
-            width=50, text="Downloaded Tracks:")
+            width=50, text='Downloaded Tracks:')
         self.explorer_label2 = Label(
             master, fg=self.colors['grey'], bg=self.colors['black'],
             width=50, text='')
@@ -81,19 +83,19 @@ class TubeDream:
             width=100, height=15, highlightcolor=self.colors['green'])
         self.delete_button = Button(
             master, fg=self.colors['white'],
-            bg=self.colors['red'], text="DELETE", width=31,
+            bg=self.colors['red'], text='DELETE', width=31,
             highlightbackground=self.colors['black'], command=self.delete)
         self.stop_button = Button(
             master, fg=self.colors['grey'],
-            bg=self.colors['green'], text="STOP", width=31,
+            bg=self.colors['green'], text='STOP', width=31,
             highlightbackground=self.colors['black'], command=self.stop)
         self.play_button = Button(
             master, fg=self.colors['grey'],
-            bg=self.colors['green'], text="PLAY", width=31,
+            bg=self.colors['green'], text='PLAY', width=31,
             highlightbackground=self.colors['black'], command=self.play)
         self.status_label = Label(
             master, fg=self.colors['grey'], bg=self.colors['black'],
-            width=60, text="Hello " + getuser())
+            width=60, text='Hello ' + getuser())
 
         # begin grid placement
         self.image.grid(row=0, sticky=W+E)
@@ -116,7 +118,7 @@ class TubeDream:
         self.populate_explorer()
 
     def finished(self):
-        d = "FINISHED DOWNLOAD"
+        d = 'FINISHED DOWNLOAD'
         for letter in enumerate(d):
             self.set_status_label(d[0:letter[0] + 1])
             self.status_label.update_idletasks()
@@ -126,16 +128,16 @@ class TubeDream:
         aac = self.f_name + '.' + 'aac'
         track = self.f_name + '.' + self.file_type
         youtube_cmd = [
-            "youtube-dl", self.link, "-f",
-            "bestaudio", "--extract-audio",
-            "-o", track, "--audio-quality",
-            "0", "--audio-format", "aac"
+            'youtube-dl', self.link, '-f',
+            'bestaudio', '--extract-audio',
+            '-o', track, '--audio-quality',
+            '0', '--audio-format', 'aac'
         ]
         cmd = ' '.join(youtube_cmd)
         for std_out in popen(cmd):
             self.set_status_label(std_out)
             self.status_label.update_idletasks()
-        ffmpeg_cmd = ["ffmpeg", "-v", "quiet", "-i", aac, track]
+        ffmpeg_cmd = ['ffmpeg', '-v', 'quiet', '-i', aac, track]
         cmd = ' '.join(ffmpeg_cmd)
         for stdout in popen(cmd):
             self.set_status_label(stdout)
@@ -144,7 +146,7 @@ class TubeDream:
             remove(aac)
             move(track, self.downloads)
         except Exception:
-            self.set_status_label("ERROR DOWNLOADING")
+            self.set_status_label('ERROR DOWNLOADING')
 
     def get_chkbtn_status(self):
         btn_status = [
@@ -159,10 +161,10 @@ class TubeDream:
             else:
                 choice.append(btn_status[i])
         if not choice:
-            self.set_status_label("Please choose a file type")
+            self.set_status_label('Please choose a file type')
             return None
         elif len(choice) > 1:
-            self.set_status_label("Please choose only one file type")
+            self.set_status_label('Please choose only one file type')
             return None
         else:
             return choice[0][0]
@@ -170,15 +172,15 @@ class TubeDream:
     def populate_explorer(self):
         self.explorer.delete(0, 'end')
         downloads = sorted(listdir(self.downloads))
-        self.explorer.insert("end", *downloads)
+        self.explorer.insert('end', *downloads)
         self.set_explorer_status_label(str(self.explorer.size()))
 
     def go(self):
-        self.link = self.youtube_link.get("1.0", END).strip()
-        self.f_name = self.file_name.get("1.0", END).strip()
+        self.link = self.youtube_link.get('1.0', END).strip()
+        self.f_name = self.file_name.get('1.0', END).strip()
         self.file_type = self.get_chkbtn_status()
         if not self.link or not self.f_name:
-            message = "Check your URL and ensure you entered a filename..."
+            message = 'Check your URL and ensure you entered a filename...'
             self.set_status_label(message)
         else:
             if self.file_type is not None:
@@ -193,22 +195,22 @@ class TubeDream:
                 self.finished()
 
     def clear(self):
-        self.file_name.delete("1.0", END)
-        self.youtube_link.delete("1.0", END)
+        self.file_name.delete('1.0', END)
+        self.youtube_link.delete('1.0', END)
         self.check_wav.set(0)
         self.check_mp3.set(0)
         self.check_m4a.set(0)
-        self.set_status_label("Hello " + getuser())
+        self.set_status_label('Hello ' + getuser())
 
     def delete(self):
         try:
             track = self.explorer.get(self.explorer.curselection())
             path = self.downloads + track
             remove(path)
-            d_message = track + " DELETED"
+            d_message = track + ' DELETED'
             self.set_status_label(d_message)
         except Exception:
-            message = "Please select a track to delete"
+            message = 'Please select a track to delete'
             self.set_status_label(message)
         self.populate_explorer()
 
@@ -217,7 +219,7 @@ class TubeDream:
             self.set_status_label('STOPPING ' + self.playing)
             self.status_label.update_idletasks()
             psaux = []
-            for line in popen("ps -aux | grep ffplay"):
+            for line in popen('ps -aux | grep ffplay'):
                 if 'ffplay' in line:
                     psaux = line.split()
                     break
@@ -232,22 +234,32 @@ class TubeDream:
             self.set_status_label('PLAYING ' + self.playing)
             self.status_label.update_idletasks()
             ffplay = [
-                "ffplay", self.downloads + self.playing,
-                "-nodisp", "-autoexit"
+                'ffplay', self.downloads + self.playing,
+                '-nodisp', '-autoexit'
             ]
             Popen(ffplay, stdout=PIPE, stderr=STDOUT)
         except Exception:
-            self.set_status_label("Please select a track to play")
+            self.set_status_label('Please select a track to play')
 
     def set_status_label(self, incoming_message1):
         self.status_label.config(text=incoming_message1)
 
     def set_explorer_status_label(self, incoming_message2):
-        incoming_message2 += " Files Found"
+        incoming_message2 += ' Files Found'
         self.explorer_label2.config(text=incoming_message2)
 
 
-def main():
+def gui_thread():
     root = Tk()
-    tube_dream = TubeDream(root)
+    TubeDream(root)
     root.mainloop()
+
+
+def main():
+    try:
+        thread = Thread(target=gui_thread)
+        thread.daemon = True
+        thread.start()
+        thread.join()
+    except KeyboardInterrupt:
+        print('\nExiting Tube Dream\n')
