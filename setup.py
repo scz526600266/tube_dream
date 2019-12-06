@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="tube_dream",
-    version="1.0.8",
+    version="1.0.9",
     packages=["tube_dream"],
     package_data={
         'tube_dream': ['tube_dream/*.png']
@@ -11,7 +11,7 @@ setup(
     include_package_data=True,
     url="https://github.com/rootVIII/tube_dream",
     license="MIT",
-    author="James Loye Colley",
+    author="rootVIII",
     description="Download Audio from your favorite YouTube videos",
     entry_points={
         "console_scripts": [

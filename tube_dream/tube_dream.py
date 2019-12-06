@@ -1,13 +1,13 @@
-#! /usr/bin/env
-from tkinter import IntVar, PhotoImage, Label, Text, END, Tk
-from tkinter import Button, Checkbutton, Listbox, W, E
-from subprocess import call, Popen, PIPE, STDOUT
+#! /usr/bin/python3
+from getpass import getuser
 from os import listdir, popen, remove, mkdir
 from os.path import realpath, isdir
-from threading import Thread
-from getpass import getuser
 from shutil import move
+from subprocess import call, Popen, PIPE, STDOUT
+from threading import Thread
 from time import sleep
+from tkinter import IntVar, PhotoImage, Label, Text, END, Tk
+from tkinter import Button, Checkbutton, Listbox, W, E
 
 
 class TubeDream:
@@ -27,16 +27,15 @@ class TubeDream:
         self.check_wav = IntVar()
         self.check_mp3 = IntVar()
         self.check_m4a = IntVar()
-        self.base_url, self.link, self.playing = '', '', ''
-        self.file_type, self.f_name = '', ''
+        x = ['' for _ in range(5)]
+        self.file_type, self.f_name, self.base_url, self.link, self.playing = x
         self.downloads = realpath(__file__)[:-13] + 'downloads/'
         if not isdir(self.downloads):
             mkdir(self.downloads)
         img = realpath(__file__)[:-13] + 'froggy.png'
+        self.greeting = 'Hello %s' % getuser()
         self.imagePath = PhotoImage(file=img)
         self.image = Label(master, image=self.imagePath, borderwidth=0)
-
-        # widgets/UI elements
         self.link_label = Label(
             master, fg=self.colors['grey'], bg=self.colors['blue'],
             text='Enter your YouTube link: ', width=57,
@@ -95,9 +94,8 @@ class TubeDream:
             highlightbackground=self.colors['black'], command=self.play)
         self.status_label = Label(
             master, fg=self.colors['grey'], bg=self.colors['black'],
-            width=60, text='Hello ' + getuser())
+            width=60, text=self.greeting)
 
-        # begin grid placement
         self.image.grid(row=0, sticky=W+E)
         self.link_label.grid(row=1, sticky=W, padx=20, pady=5)
         self.youtube_link.grid(row=1, sticky=E, padx=20, pady=5)
@@ -158,8 +156,7 @@ class TubeDream:
         for i in range(len(btn_status)):
             if btn_status[i][1] != 1:
                 continue
-            else:
-                choice.append(btn_status[i])
+            choice.append(btn_status[i])
         if not choice:
             self.set_status_label('Please choose a file type')
             return None
@@ -200,14 +197,14 @@ class TubeDream:
         self.check_wav.set(0)
         self.check_mp3.set(0)
         self.check_m4a.set(0)
-        self.set_status_label('Hello ' + getuser())
+        self.set_status_label(self.greeting)
 
     def delete(self):
         try:
             track = self.explorer.get(self.explorer.curselection())
             path = self.downloads + track
             remove(path)
-            d_message = track + ' DELETED'
+            d_message = '%s DELETED' % track
             self.set_status_label(d_message)
         except Exception:
             message = 'Please select a track to delete'
@@ -263,3 +260,7 @@ def main():
         thread.join()
     except KeyboardInterrupt:
         print('\nExiting Tube Dream\n')
+
+
+if __name__ == '__main__':
+    main()
